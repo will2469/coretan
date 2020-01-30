@@ -6,7 +6,7 @@
       alt                         = "Prototype Logo"
       class                       = "brand-image img-circle elevation-3"
       style                       = "opacity: .8">
-      <span class                 = "brand-text font-weight-light">bejiSID</span>
+      <span class                 = "brand-text font-weight-light">SID</span>
     </a>
 
     <!-- Sidebar -->
@@ -30,7 +30,7 @@
           <!-- Tambahkan icon fa- untuk mengubah font dari fontawesome -->
           <!-- Dashboard Module -->
           <li class               = "nav-item">
-            <router-link to     = "/dashboard" class="nav-link">
+            <router-link to     = "/home" class="nav-link">
               <i class            = "nav-icon fas fa-feather-alt"></i>
               <p>
                 Dashboard
@@ -48,7 +48,7 @@
             </a>
             <ul class             = "nav nav-treeview">
               <li class           = "nav-item">
-                <router-link to   = "/desa" class="nav-link">
+                <router-link to   = "/id-desa" class="nav-link">
                   <i class        = "fas fa-id-card-alt nav-icon"></i>
                   <p>Identitas Desa</p>
                 </router-link>
@@ -327,7 +327,7 @@
                 </a>
               </li>
               <li class           = "nav-item">
-                <router-link to   = "/pengguna" class="nav-link">
+                <router-link to   = "#" class="nav-link">
                   <i class        = "fas fa-users-cog nav-icon"></i>
                   <p>Pengguna</p>
                 </router-link>

@@ -25,6 +25,7 @@
         "sass-loader": "7.*",
         "tempusdominus-core": "^5.0.3",
         "vue": "^2.5.17",
+        "vue-router": "^3.1.5",
         "vue-template-compiler": "^2.6.10"
     }
 }
