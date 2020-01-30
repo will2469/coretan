@@ -47278,3 +47278,37 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
+/* ==========================================================================
+    Style CSS untuk Dashboard
+   ========================================================================== */
+
+.router-link-exact-active {
+  background-color: #21BECB;
+  color: #21BECB;
+}
+
+.sidebar-dark-primary {
+  background-color: #273DAE;
+}
+
+.brand-text {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.navbar-light {
+  background-color: #3146B1;
+}
+
+.content-wrapper {
+  background-color: #EEF1F7;
+}
+
+.warning-background {
+  background-color: #FFC107;
+}
+
+.danger-background {
+  background-color: #DC3545;
+}
+

@@ -15,3 +15,42 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+/* ==========================================================================
+    Style CSS untuk Dashboard
+   ========================================================================== */
+
+//Deklarasi jenis warna yang digunakan
+$yellow-warning: #FFC107;
+$red-danger: #DC3545;
+
+//memberi warna pada sidebar yang sedang aktif
+.router-link-exact-active {
+    background-color: #21BECB;
+    color: #21BECB;
+}
+
+.sidebar-dark-primary {
+    background-color: #273DAE;
+}
+
+.brand-text {
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.navbar-light {
+    background-color: #3146B1;
+}
+
+.content-wrapper {
+    background-color: #EEF1F7;
+}
+
+.warning-background {
+    background-color: $yellow-warning;
+}
+
+.danger-background {
+    background-color: $red-danger;
+}
