@@ -1,78 +1,116 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+## Coretan
+>Coretan untuk Sistem Informasi Desa
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Sistem aplikasi Desa yang dibangun menggunakan Laravel 6
 
-## About Laravel
+## Table of Contents
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Latar Belakang](#latar-belakang)
+- [Build status](#build-status)
+- [Demo](#demo)
+- [Framework dan Dependencies](#framework-dan-dependencies)
+- [Features](#features)
+- [Install](#install)
+- [Panduan](#panduan)
+- [Donasi](#panduan)
+- [Credits](#credits)
+- [Lisensi](#lisensi)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Latar Belakang
+Aplikasi ini dikembangkan sebagai langkah implementasi UU Desa no 6/14 pasal 86 tentang Sistem Informasi Pembangunan Desa dan Pembangunan Kawasan Perdesaan.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Build status
+Aplikasi berbasis php ini kami uji kelayakannya sehingga memastikan kualitas sistem informasi desa.
 
-## Learning Laravel
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3d24034237df402298a38564d1d41ff1)](https://www.codacy.com/manual/will2469/coretan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=will2469/coretan&amp;utm_campaign=Badge_Grade)
+ 
+## Demo
+descibed later
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Framework dan Dependencies
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Tentunya dalam pengembangan sistem ini tidak lepas dari fitur - fitur yang telah dikembangkan oleh beberapa vendor yang tentunya opensource. Tidak lupa kami ikut serta menghargai karya - karya para developer yang ada dengan tidak serta - merta mengabaikan jerih payah mereka dengan menampilkannya didaftar ini.
 
-## Laravel Sponsors
+<b>Sistem berkembang bersama : </b>
+- **[Laravel](https://laravel.com/)**
+- **[AdminLTE](https://adminlte.io/)**
+- **[Bootstrap](https://getbootstrap.com/)**
+- **[jQuery](https://jquery.com/)**
+- **[Vue.js](https://vuejs.org/)**
+- **[fortawesome/fontawesome-free](https://fontawesome.com/)**
+- **[Sass](https://sass-lang.com/)**
+- **[Vue Router](https://router.vuejs.org/)**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Features
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+aplikasi ini dilengkapi dengan berbagai macam fitur :
+1. described every succes change
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Install
 
-## Code of Conduct
+Untuk menginstall aplikasi ini silahkan ikuti langkah - langkah berikut :
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Clone atau download pada github repository dan extract ke folder htdoc pada xampp
 
-## Security Vulnerabilities
+2. Buka dengan code editor, kami menyarankan untuk menggunakan Visual Studio Code
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. Open terminal menggunakan shortcut `Ctrl` + `Shift` + `
 
-## License
+4. Jalankan kode berikut untuk menginstall laravel
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    ```
+    $ composer install
+    ```
+
+5. Modifikasi file .env.example menjadi .env dan sesuaikan pengaturan database
+
+6. Generate APP_KEY untuk laravel dengan cara :
+
+    ```
+    $ php artisan key:generate
+    ```
+
+7. Kemudian Install dependencies pada packages.json dan jalan development
+
+    ```
+    $ npm install && npm run dev
+    ```
+
+8. Jalankan laravel kedalam localhost dengan menggunakan perintah :
+
+    ```
+    $ php artisan serve
+    ```
+
+9. Setelah berhasil tekan `Ctrl` + `Click` pada local server
+
+    ```
+    $ php artisan serve
+    Laravel development server started: http://127.0.0.1:8000
+    ```
+
+10. Happy Coding!!! :thumbsup: :thumbsup: :thumbsup:
+
+## Panduan
+described later
+
+## Donasi
+described later
+
+## Credits
+>Spesial Thanks to :
+
+-[Taylor Otwell](mailto:taylor@laravel.com)
+
+-[OpenSID](https://github.com/OpenSID)
+
+-[Hujatulla Asghari](https://www.youtube.com/channel/UCnj1BK9TU32-bOlZ9415fuw)
+
+## Lisensi
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Aplikasi ini memiliki lisensi : [MIT](https://opensource.org/licenses/MIT)
+
+© [will2469](https://github.com/will2469) 2020
