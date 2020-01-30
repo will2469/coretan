@@ -31,6 +31,10 @@ let routes = [{
     {
         path: '/id-desa',
         components: require('./admin/IdentitasDesa.vue')
+    },
+    {
+        path: '/pengguna',
+        components: require('./admin/Users.vue')
     }
 ]
 /**

@@ -51,6 +51,22 @@ $red-danger: #DC3545;
     color: $yellow-warning;
 }
 
+.bg-warning {
+    background-color: $yellow-warning;
+}
+
 .danger {
     color: $red-danger;
+}
+
+.bg-danger {
+    background-color: $red-danger;
+}
+
+.icon-white {
+    color: #FFFFFF;
+}
+
+.font-white {
+    color: #FFFFFF;
 }

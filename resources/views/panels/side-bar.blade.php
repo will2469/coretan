@@ -327,7 +327,7 @@
                 </a>
               </li>
               <li class           = "nav-item">
-                <router-link to   = "#" class="nav-link">
+                <router-link to   = "/pengguna" class="nav-link">
                   <i class        = "fas fa-users-cog nav-icon"></i>
                   <p>Pengguna</p>
                 </router-link>

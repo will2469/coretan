@@ -105,16 +105,17 @@
           <i class="fas fa-th-large"></i>
         </a>
       </li>
+      <!-- Log out Methods -->
       <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
                     <i class="nav-icon fas fa-sign-out-alt danger"></i>
-                 </a>
+                  </a>
 
-             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                 @csrf
-             </form>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                  </form>
       </li>
     </ul>
   </nav>
