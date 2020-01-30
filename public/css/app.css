@@ -47304,11 +47304,11 @@ readers do not read off random characters that represent icons */
   background-color: #EEF1F7;
 }
 
-.warning-background {
-  background-color: #FFC107;
+.warning {
+  color: #FFC107;
 }
 
-.danger-background {
-  background-color: #DC3545;
+.danger {
+  color: #DC3545;
 }
 
