@@ -101,11 +101,11 @@ described later
 ## Credits
 >Spesial Thanks to :
 
--[Taylor Otwell](mailto:taylor@laravel.com)
+- **[Taylor Otwell](mailto:taylor@laravel.com)**
 
--[OpenSID](https://github.com/OpenSID)
+- **[OpenSID](https://github.com/OpenSID)**
 
--[Hujatulla Asghari](https://www.youtube.com/channel/UCnj1BK9TU32-bOlZ9415fuw)
+- **[Hujatulla Asghari](https://www.youtube.com/channel/UCnj1BK9TU32-bOlZ9415fuw)**
 
 ## Lisensi
 
