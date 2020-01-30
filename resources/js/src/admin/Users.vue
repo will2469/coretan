@@ -22,33 +22,20 @@
                 </div>
               </div>
             </div>
-            <div class="box-header with-border">
-              <table class="table table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    <th>
-                      <button
-                        type="button"
-                        class="btn btn-block bg-gradient-success btn-lg font-white"
-                        data-toggle="modal"
-                        data-target="#addNew"
-                      >
-                        Tambah Baru
-                        <i class="fas fa-user-plus icon-white"></i>
-                      </button>
-                    </th>
-                    <th>
-                      <button
-                        type="button"
-                        class="btn btn-block bg-gradient-success btn-lg font-white"
-                      >Success</button>
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
           </div>
           <!-- /.card-header -->
+
+          <div class="box-header with-border">
+            <a
+              class="btn bg-success btn-flat btn-sm"
+              title="Add New"
+              data-toggle="modal"
+              data-target="#addNew"
+            >
+              Tambah Baru
+              <i class="fa fa-user-edit icon-white"></i>
+            </a>
+          </div>
 
           <div class="card-body table-responsive p-0">
             <table class="table table-hover text-nowrap">
@@ -59,6 +46,7 @@
                   <th>Nama</th>
                   <th>Email</th>
                   <th>NIK</th>
+                  <th>Role</th>
                   <th>Status</th>
                   <th>Terakhir Login</th>
                 </tr>
@@ -81,6 +69,7 @@
                   <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
                   <td>183</td>
                   <td>183</td>
+                  <td>183</td>
                 </tr>
               </tbody>
             </table>
@@ -101,13 +90,82 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">
-            <p>One fine body…</p>
-          </div>
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+          <form @submit.prevent="createUser">
+            <div class="modal-body">
+              <div class="form-group">
+                <input
+                  v-model="form.name"
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  placeholder="Masukkan Nama Pengguna..."
+                  :class="{ 'is-invalid': form.errors.has('name') }"
+                />
+                <has-error :form="form" field="name"></has-error>
+              </div>
+              <div class="form-group">
+                <input
+                  v-model="form.email"
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  placeholder="Masukkan Alamat Email..."
+                  :class="{ 'is-invalid': form.errors.has('email') }"
+                />
+                <has-error :form="form" field="email"></has-error>
+              </div>
+              <div class="form-group">
+                <input
+                  v-model="form.password"
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  placeholder="Masukkan Kata Sandi..."
+                  :class="{ 'is-invalid': form.errors.has('password') }"
+                />
+                <has-error :form="form" field="password"></has-error>
+              </div>
+              <div class="form-group">
+                <input
+                  v-model="form.nik"
+                  type="number"
+                  class="form-control"
+                  name="nik"
+                  placeholder="Masukkan NIK..."
+                  :class="{ 'is-invalid': form.errors.has('nik') }"
+                />
+                <has-error :form="form" field="nik"></has-error>
+              </div>
+              <div class="form-group">
+                <select
+                  name="role"
+                  v-model="form.role"
+                  id="role"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('role') }"
+                >
+                  <option value>Pilih Role</option>
+                  <option value="1">Kepala Desa</option>
+                  <option value="2">Sekretaris Desa</option>
+                  <option value="3">Kaur Umum dan Perencanaan</option>
+                  <option value="4">Kaur Keuangan</option>
+                  <option value="5">Kasi Pemerintahan</option>
+                  <option value="6">Kasi Kesejahteraan dan Pelayanan</option>
+                  <option value="7">Kadus I</option>
+                  <option value="8">Kadus II</option>
+                  <option value="9">BPD</option>
+                  <option value="10">Lembaga Desa</option>
+                  <option value="11">Penduduk</option>
+                  <option value="10">Pengunjung</option>
+                </select>
+                <has-error :form="form" field="role"></has-error>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
         </div>
         <!-- /.modal-content -->
       </div>
@@ -115,3 +173,25 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      form: new Form({
+        name: "",
+        email: "",
+        password: "",
+        nik: "",
+        role: "",
+        photo: ""
+      })
+    };
+  },
+  methods: {
+    createUser() {
+      this.form.post('api/user');
+    }
+  }
+};
+</script>

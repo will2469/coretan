@@ -8,6 +8,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+// Register vform Components
+import './vendor/vform.js'
+
 /**
  * 
  * memberitahukan sistem untuk menggunakan Vue Router

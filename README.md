@@ -40,6 +40,8 @@ Tentunya dalam pengembangan sistem ini tidak lepas dari fitur - fitur yang telah
 - **[fortawesome/fontawesome-free](https://fontawesome.com/)**
 - **[Sass](https://sass-lang.com/)**
 - **[Vue Router](https://router.vuejs.org/)**
+- **[vform](https://www.npmjs.com/package/vform)**
+- **[eslint-plugin-vue](https://www.npmjs.com/package/eslint-plugin-vue)**
 
 ## Features
 

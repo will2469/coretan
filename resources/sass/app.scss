@@ -21,6 +21,7 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
    ========================================================================== */
 
 //Deklarasi jenis warna yang digunakan
+$green-success: #28A745;
 $yellow-warning: #FFC107;
 $red-danger: #DC3545;
 
@@ -45,6 +46,10 @@ $red-danger: #DC3545;
 
 .content-wrapper {
     background-color: #EEF1F7;
+}
+
+.bg-success {
+    background-color: $green-success;
 }
 
 .warning {

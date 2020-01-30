@@ -47304,6 +47304,10 @@ readers do not read off random characters that represent icons */
   background-color: #EEF1F7;
 }
 
+.bg-success {
+  background-color: #28A745;
+}
+
 .warning {
   color: #FFC107;
 }
