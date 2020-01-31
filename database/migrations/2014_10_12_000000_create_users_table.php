@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('photo')->default('boy.png')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->timestamp("last_online_at")->useCurrent();
         });
     }
 

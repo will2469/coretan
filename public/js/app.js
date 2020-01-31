@@ -38621,7 +38621,7 @@ var render = function() {
                           ])
                     ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v("last hours")])
+                    _c("td", [_vm._v(_vm._s(user.last_online_at))])
                   ])
                 }),
                 0

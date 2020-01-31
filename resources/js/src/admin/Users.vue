@@ -70,7 +70,7 @@
                     <span v-if="user.isOnline" class="badge bg-success">online</span>
                     <span v-else class="badge bg-danger">offline</span>
                   </td>
-                  <td>last hours</td>
+                  <td>{{user.last_online_at}}</td>
                 </tr>
               </tbody>
             </table>
