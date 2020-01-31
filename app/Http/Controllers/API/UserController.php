@@ -9,6 +9,8 @@ use App\User;
 
 class UserController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -28,12 +30,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         return User::create([
-            'name' -> $request['name'],
-            'email' -> $request['email'],
-            'password' -> Hash::make($request['password']),
-            'nik' -> $request['nik'],
-            'role' -> $request['role'],
-            'photo' -> $request['photo'],
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'nik' => $request['nik'],
+            'role' => $request['role'],
         ]);
     }
 

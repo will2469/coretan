@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <!-- memberitahukan kepada browser untuk responsif terhadap lebar layar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- memberitahukan kepada browser mengenai judul halaman -->
-    <title>bejiSID | Sistem Informasi Desa Beji</title>
+    <title>Coretan | Sistem Informasi Desa</title>
     <title>Document</title>
     <link rel="stylesheet" href="/css/app.css">
 </head>

@@ -183,14 +183,13 @@ export default {
         email: "",
         password: "",
         nik: "",
-        role: "",
-        photo: ""
+        role: ""
       })
     };
   },
   methods: {
     createUser() {
-      this.form.post('api/user');
+      this.form.post("api/user");
     }
   }
 };

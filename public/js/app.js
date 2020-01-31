@@ -2109,14 +2109,13 @@ __webpack_require__.r(__webpack_exports__);
         email: "",
         password: "",
         nik: "",
-        role: "",
-        photo: ""
+        role: ""
       })
     };
   },
   methods: {
     createUser: function createUser() {
-      this.form.post('api/user');
+      this.form.post("api/user");
     }
   }
 });
