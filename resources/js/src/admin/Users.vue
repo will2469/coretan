@@ -52,8 +52,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>183</td>
+                <tr v-for="user in users" :key="user.id">
+                  <td>{{user.id}}</td>
                   <td>
                     <a href="#" class="btn bg-warning btn-flat btn-sm" title="Ubah">
                       <i class="fa fa-user-edit icon-white"></i>
@@ -62,14 +62,12 @@
                       <i class="fa fa-user-times icon-white"></i>
                     </a>
                   </td>
-                  <td>11-7-2014</td>
-                  <td>
-                    <span class="tag tag-success">Approved</span>
-                  </td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                  <td>183</td>
-                  <td>183</td>
-                  <td>183</td>
+                  <td>{{user.name}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.nik}}</td>
+                  <td>{{getRoles(user.roles)}}</td>
+                  <td>oline</td>
+                  <td>last hours</td>
                 </tr>
               </tbody>
             </table>
@@ -145,18 +143,10 @@
                   :class="{ 'is-invalid': form.errors.has('role') }"
                 >
                   <option value>Pilih Role</option>
-                  <option value="1">Kepala Desa</option>
-                  <option value="2">Sekretaris Desa</option>
-                  <option value="3">Kaur Umum dan Perencanaan</option>
-                  <option value="4">Kaur Keuangan</option>
-                  <option value="5">Kasi Pemerintahan</option>
-                  <option value="6">Kasi Kesejahteraan dan Pelayanan</option>
-                  <option value="7">Kadus I</option>
-                  <option value="8">Kadus II</option>
-                  <option value="9">BPD</option>
-                  <option value="10">Lembaga Desa</option>
-                  <option value="11">Penduduk</option>
-                  <option value="10">Pengunjung</option>
+                  <option value="1">Pemerintah Desa</option>
+                  <option value="2">Lembaga Desa</option>
+                  <option value="3">Penduduk</option>
+                  <option value="4">Pengunjung</option>
                 </select>
                 <has-error :form="form" field="role"></has-error>
               </div>
@@ -178,19 +168,34 @@
 export default {
   data() {
     return {
+      users: {},
       form: new Form({
         name: "",
         email: "",
         password: "",
-        nik: "",
-        role: ""
+        nik: ""
       })
     };
   },
   methods: {
     createUser() {
       this.form.post("api/user");
+    },
+    loadUsers() {
+      axios.get("api/user").then(({ data }) => (this.users = data));
+    },
+    getRoles: function(roles) {
+      let rolesString = "";
+
+      roles.forEach((role, index) => {
+        if (index != 0) rolesString += ", ";
+        rolesString = rolesString + role.name;
+      });
+      return rolesString;
     }
+  },
+  created() {
+    this.loadUsers();
   }
 };
 </script>

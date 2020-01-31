@@ -2091,32 +2091,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      users: {},
       form: new Form({
         name: "",
         email: "",
         password: "",
-        nik: "",
-        role: ""
+        nik: ""
       })
     };
   },
   methods: {
     createUser: function createUser() {
       this.form.post("api/user");
+    },
+    loadUsers: function loadUsers() {
+      var _this = this;
+
+      axios.get("api/user").then(function (_ref) {
+        var data = _ref.data;
+        return _this.users = data;
+      });
+    },
+    getRoles: function getRoles(roles) {
+      var rolesString = "";
+      roles.forEach(function (role, index) {
+        if (index != 0) rolesString += ", ";
+        rolesString = rolesString + role.name;
+      });
+      return rolesString;
     }
+  },
+  created: function created() {
+    this.loadUsers();
   }
 });
 
@@ -38563,7 +38572,45 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "row md-5" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body table-responsive p-0" }, [
+            _c("table", { staticClass: "table table-hover text-nowrap" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.users, function(user) {
+                  return _c("tr", { key: user.id }, [
+                    _c("td", [_vm._v(_vm._s(user.id))]),
+                    _vm._v(" "),
+                    _vm._m(3, true),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.email))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(user.nik))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.getRoles(user.roles)))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("oline")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("last hours")])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -38575,7 +38622,7 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(1),
+            _vm._m(4),
             _vm._v(" "),
             _c(
               "form",
@@ -38787,50 +38834,18 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "1" } }, [
-                            _vm._v("Kepala Desa")
+                            _vm._v("Pemerintah Desa")
                           ]),
                           _vm._v(" "),
                           _c("option", { attrs: { value: "2" } }, [
-                            _vm._v("Sekretaris Desa")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "3" } }, [
-                            _vm._v("Kaur Umum dan Perencanaan")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "4" } }, [
-                            _vm._v("Kaur Keuangan")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "5" } }, [
-                            _vm._v("Kasi Pemerintahan")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "6" } }, [
-                            _vm._v("Kasi Kesejahteraan dan Pelayanan")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "7" } }, [
-                            _vm._v("Kadus I")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "8" } }, [
-                            _vm._v("Kadus II")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "9" } }, [
-                            _vm._v("BPD")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "10" } }, [
                             _vm._v("Lembaga Desa")
                           ]),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "11" } }, [
+                          _c("option", { attrs: { value: "3" } }, [
                             _vm._v("Penduduk")
                           ]),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "10" } }, [
+                          _c("option", { attrs: { value: "4" } }, [
                             _vm._v("Pengunjung")
                           ])
                         ]
@@ -38844,7 +38859,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(5)
               ]
             )
           ])
@@ -38858,135 +38873,102 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row md-5" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [
-              _vm._v("Pengaturan Pengguna")
-            ]),
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Pengaturan Pengguna")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" }, [
+        _c(
+          "div",
+          {
+            staticClass: "input-group input-group-sm",
+            staticStyle: { width: "150px" }
+          },
+          [
+            _c("input", {
+              staticClass: "form-control float-right",
+              attrs: { type: "text", name: "table_search", placeholder: "Cari" }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "card-tools" }, [
+            _c("div", { staticClass: "input-group-append" }, [
               _c(
-                "div",
-                {
-                  staticClass: "input-group input-group-sm",
-                  staticStyle: { width: "150px" }
-                },
-                [
-                  _c("input", {
-                    staticClass: "form-control float-right",
-                    attrs: {
-                      type: "text",
-                      name: "table_search",
-                      placeholder: "Cari"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group-append" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default",
-                        attrs: { type: "submit" }
-                      },
-                      [_c("i", { staticClass: "fas fa-search" })]
-                    )
-                  ])
-                ]
+                "button",
+                { staticClass: "btn btn-default", attrs: { type: "submit" } },
+                [_c("i", { staticClass: "fas fa-search" })]
               )
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "box-header with-border" }, [
-            _c(
-              "a",
-              {
-                staticClass: "btn bg-success btn-flat btn-sm",
-                attrs: {
-                  title: "Add New",
-                  "data-toggle": "modal",
-                  "data-target": "#addNew"
-                }
-              },
-              [
-                _vm._v("\n            Tambah Baru\n            "),
-                _c("i", { staticClass: "fa fa-user-edit icon-white" })
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body table-responsive p-0" }, [
-            _c("table", { staticClass: "table table-hover text-nowrap" }, [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", [_vm._v("No")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Aksi")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Nama")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Email")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("NIK")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Role")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Status")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Terakhir Login")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody", [
-                _c("tr", [
-                  _c("td", [_vm._v("183")]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn bg-warning btn-flat btn-sm",
-                        attrs: { href: "#", title: "Ubah" }
-                      },
-                      [_c("i", { staticClass: "fa fa-user-edit icon-white" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn bg-danger btn-flat btn-sm",
-                        attrs: { href: "#", title: "Ubah" }
-                      },
-                      [_c("i", { staticClass: "fa fa-user-times icon-white" })]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("11-7-2014")]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "tag tag-success" }, [
-                      _vm._v("Approved")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _vm._v(
-                      "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("183")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("183")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("183")])
-                ])
-              ])
-            ])
-          ])
-        ])
+          ]
+        )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn bg-success btn-flat btn-sm",
+          attrs: {
+            title: "Add New",
+            "data-toggle": "modal",
+            "data-target": "#addNew"
+          }
+        },
+        [
+          _vm._v("\n            Tambah Baru\n            "),
+          _c("i", { staticClass: "fa fa-user-edit icon-white" })
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Aksi")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nama")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("NIK")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Role")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Terakhir Login")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass: "btn bg-warning btn-flat btn-sm",
+          attrs: { href: "#", title: "Ubah" }
+        },
+        [_c("i", { staticClass: "fa fa-user-edit icon-white" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn bg-danger btn-flat btn-sm",
+          attrs: { href: "#", title: "Ubah" }
+        },
+        [_c("i", { staticClass: "fa fa-user-times icon-white" })]
+      )
     ])
   },
   function() {

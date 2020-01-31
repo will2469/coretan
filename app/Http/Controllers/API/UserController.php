@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Role;
 
 class UserController extends Controller
 {
@@ -18,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::with('roles')->get();
     }
 
     /**
@@ -29,13 +30,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request,[
+            'name' => 'required|string|max:60',
+            'email' => 'required|string|email|max:60|unique:users',
+            'password' => 'required|string|min:6',
+            'nik' => 'required|string|size:16'
+        ]);
+
         return User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
             'nik' => $request['nik'],
-            'role' => $request['role'],
         ]);
+
+        if ($request->has('roles')) {
+            $user->assignRole($request->role['role_id']);
+        }
     }
 
     /**
