@@ -2085,6 +2085,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38608,7 +38611,15 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm.getRoles(user.roles)))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v("oline")]),
+                    _c("td", [
+                      user.isOnline
+                        ? _c("span", { staticClass: "badge bg-success" }, [
+                            _vm._v("online")
+                          ])
+                        : _c("span", { staticClass: "badge bg-danger" }, [
+                            _vm._v("offline")
+                          ])
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v("last hours")])
                   ])

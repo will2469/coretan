@@ -66,7 +66,10 @@
                   <td>{{user.email}}</td>
                   <td>{{user.nik}}</td>
                   <td>{{getRoles(user.roles)}}</td>
-                  <td>oline</td>
+                  <td>
+                    <span v-if="user.isOnline" class="badge bg-success">online</span>
+                    <span v-else class="badge bg-danger">offline</span>
+                  </td>
                   <td>last hours</td>
                 </tr>
               </tbody>
