@@ -4,14 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\User;
 use App\Role;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::with('roles')->get();
+        return Role::all();
     }
 
     /**
@@ -30,25 +26,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->validate($request,[
-            'name' => 'required|string|max:60',
-            'email' => 'required|string|email|max:60|unique:users',
-            'password' => 'required|string|min:6',
-            'nik' => 'required|string|size:16',
-            'roleId' => 'required'
-        ]);
-
-        $role = Role::where('id', $request['roleId'])->first();
-
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'nik' => $request['nik'],
-        ]);
-        
-        $user->roles()->attach($role);
+        //
     }
 
     /**

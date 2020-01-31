@@ -2085,27 +2085,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       users: {},
+      roles: {},
       form: new Form({
         name: "",
         email: "",
         password: "",
-        nik: ""
+        nik: "",
+        roleId: ""
       })
     };
   },
   methods: {
     createUser: function createUser() {
-      this.form.post("api/user");
+      var url = "api/user";
+      this.form.post(url);
     },
     loadUsers: function loadUsers() {
       var _this = this;
@@ -2113,6 +2110,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
         return _this.users = data;
+      });
+    },
+    loadRoles: function loadRoles() {
+      var _this2 = this;
+
+      var url = "api/role";
+      axios.get(url).then(function (_ref2) {
+        var data = _ref2.data;
+        // console.log(response)
+        // set your form data not sure of the correct form from above but same idea
+        _this2.roles = data; // however the response is formatted from Laravel may differ
       });
     },
     getRoles: function getRoles(roles) {
@@ -2126,6 +2134,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.loadUsers();
+    this.loadRoles();
   }
 });
 
@@ -38790,73 +38799,56 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.role,
-                              expression: "form.role"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          class: { "is-invalid": _vm.form.errors.has("role") },
-                          attrs: { name: "role", id: "role" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "role",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.roleId,
+                            expression: "form.roleId"
                           }
-                        },
-                        [
-                          _c("option", { attrs: { value: "" } }, [
-                            _vm._v("Pilih Role")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "1" } }, [
-                            _vm._v("Pemerintah Desa")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "2" } }, [
-                            _vm._v("Lembaga Desa")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "3" } }, [
-                            _vm._v("Penduduk")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "4" } }, [
-                            _vm._v("Pengunjung")
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("has-error", {
-                        attrs: { form: _vm.form, field: "role" }
-                      })
-                    ],
-                    1
-                  )
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "roleId", id: "roleId" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "roleId",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Silahkan Pilih Role..")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.roles, function(role) {
+                          return _c(
+                            "option",
+                            { key: role.id, domProps: { value: role.id } },
+                            [_vm._v(_vm._s(role.name))]
+                          )
+                        })
+                      ],
+                      2
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
                 _vm._m(5)

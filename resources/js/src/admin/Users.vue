@@ -135,20 +135,14 @@
                 <has-error :form="form" field="nik"></has-error>
               </div>
               <div class="form-group">
-                <select
-                  name="role"
-                  v-model="form.role"
-                  id="role"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('role') }"
-                >
-                  <option value>Pilih Role</option>
-                  <option value="1">Pemerintah Desa</option>
-                  <option value="2">Lembaga Desa</option>
-                  <option value="3">Penduduk</option>
-                  <option value="4">Pengunjung</option>
+                <select v-model="form.roleId" name="roleId" id="roleId" class="form-control">
+                  <option value>Silahkan Pilih Role..</option>
+                  <option
+                    v-for="role in roles"
+                    :key="role.id"
+                    v-bind:value="role.id"
+                  >{{ role.name }}</option>
                 </select>
-                <has-error :form="form" field="role"></has-error>
               </div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -169,20 +163,31 @@ export default {
   data() {
     return {
       users: {},
+      roles: {},
       form: new Form({
         name: "",
         email: "",
         password: "",
-        nik: ""
+        nik: "",
+        roleId: ""
       })
     };
   },
   methods: {
     createUser() {
-      this.form.post("api/user");
+      let url = "api/user";
+      this.form.post(url);
     },
     loadUsers() {
       axios.get("api/user").then(({ data }) => (this.users = data));
+    },
+    loadRoles: function() {
+      let url = "api/role";
+      axios.get(url).then(({ data }) => {
+        // console.log(response)
+        // set your form data not sure of the correct form from above but same idea
+        this.roles = data; // however the response is formatted from Laravel may differ
+      });
     },
     getRoles: function(roles) {
       let rolesString = "";
@@ -196,6 +201,7 @@ export default {
   },
   created() {
     this.loadUsers();
+    this.loadRoles();
   }
 };
 </script>
