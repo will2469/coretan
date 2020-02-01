@@ -58,7 +58,12 @@
                     <a href="#" class="btn bg-warning btn-flat btn-sm" title="Ubah">
                       <i class="fa fa-user-edit icon-white"></i>
                     </a>
-                    <a href="#" class="btn bg-danger btn-flat btn-sm" title="Ubah">
+                    <a
+                      href="#"
+                      @click="deleteUser(user.id)"
+                      class="btn bg-danger btn-flat btn-sm"
+                      title="Ubah"
+                    >
                       <i class="fa fa-user-times icon-white"></i>
                     </a>
                   </td>
@@ -177,21 +182,54 @@ export default {
     };
   },
   methods: {
+    deleteUser(id) {
+      Swal.fire({
+        title: "Apakah Sudah Yakin Bosku?",
+        text: "Data tidak dapat dikembalikan!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, Hapus Bosku!"
+      }).then(result => {
+        //Send the request to the server
+        let url = "api/user/" + id;
+        this.form
+          .delete(url)
+          .then(() => {
+            if (result.value) {
+              Swal.fire("Berhasil!", "Data berhasil Dihapus Bosku.", "success");
+            }
+            Update.$emit("Updated");
+          })
+          .catch(() => {
+            Swal.fire("Gagal!", "Terjadi Kesalahan Bosku", "warning");
+          });
+      });
+    },
     createUser() {
       this.$Progress.start();
       let url = "api/user";
-      this.form.post(url);
+      this.form
+        .post(url)
+        .then(() => {
+          Update.$emit("Updated");
 
-      Update.$emit("AfterUserCreated");
+          $("#addNew").modal("hide");
 
-      $("#addNew").modal("hide");
+          this.$Toast.fire({
+            icon: "success",
+            title: "Pengguna baru telah dibuat bosku..."
+          });
 
-      this.$Toast.fire({
-        icon: "success",
-        title: "Pengguna baru telah dibuat bosku..."
-      });
-
-      this.$Progress.finish();
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Toast.fire({
+            icon: "warning",
+            title: "Terdapat kesalahan saat menyimpan data bosku..."
+          });
+        });
     },
     loadUsers() {
       axios.get("api/user").then(({ data }) => (this.users = data));
@@ -218,11 +256,11 @@ export default {
     this.loadUsers();
     this.loadRoles();
 
-    Update.$on("AfterUserCreated", () => {
+    Update.$on("Updated", () => {
       this.loadUsers();
     });
 
-    //setInterval(() => this.loadUsers(), 5000); -for realtime update use
+    //setInterval(() => this.loadUsers(), 5000); // for realtime update use
   }
 };
 </script>

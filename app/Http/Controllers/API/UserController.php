@@ -84,6 +84,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->roles()->sync([]);
+        // delete user
+
+        $user->delete();
+
+        return ['message', "User Deleted"];
     }
 }

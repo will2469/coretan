@@ -2088,6 +2088,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2103,35 +2108,71 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    deleteUser: function deleteUser(id) {
+      var _this = this;
+
+      Swal.fire({
+        title: "Apakah Sudah Yakin Bosku?",
+        text: "Data tidak dapat dikembalikan!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, Hapus Bosku!"
+      }).then(function (result) {
+        //Send the request to the server
+        var url = "api/user/" + id;
+
+        _this.form["delete"](url).then(function () {
+          if (result.value) {
+            Swal.fire("Berhasil!", "Data berhasil Dihapus Bosku.", "success");
+          }
+
+          Update.$emit("Updated");
+        })["catch"](function () {
+          Swal.fire("Gagal!", "Terjadi Kesalahan Bosku", "warning");
+        });
+      });
+    },
     createUser: function createUser() {
+      var _this2 = this;
+
       this.$Progress.start();
       var url = "api/user";
-      this.form.post(url);
-      Update.$emit("AfterUserCreated");
-      $("#addNew").modal("hide");
-      this.$Toast.fire({
-        icon: "success",
-        title: "Pengguna baru telah dibuat bosku..."
+      this.form.post(url).then(function () {
+        Update.$emit("Updated");
+        $("#addNew").modal("hide");
+
+        _this2.$Toast.fire({
+          icon: "success",
+          title: "Pengguna baru telah dibuat bosku..."
+        });
+
+        _this2.$Progress.finish();
+      })["catch"](function () {
+        _this2.$Toast.fire({
+          icon: "warning",
+          title: "Terdapat kesalahan saat menyimpan data bosku..."
+        });
       });
-      this.$Progress.finish();
     },
     loadUsers: function loadUsers() {
-      var _this = this;
+      var _this3 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this.users = data;
+        return _this3.users = data;
       });
     },
     loadRoles: function loadRoles() {
-      var _this2 = this;
+      var _this4 = this;
 
       var url = "api/role";
       axios.get(url).then(function (_ref2) {
         var data = _ref2.data;
         // console.log(response)
         // set your form data not sure of the correct form from above but same idea
-        _this2.roles = data; // however the response is formatted from Laravel may differ
+        _this4.roles = data; // however the response is formatted from Laravel may differ
       });
     },
     getRoles: function getRoles(roles) {
@@ -2144,13 +2185,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this5 = this;
 
     this.loadUsers();
     this.loadRoles();
-    Update.$on("AfterUserCreated", function () {
-      _this3.loadUsers();
-    }); //setInterval(() => this.loadUsers(), 5000); -for realtime update use
+    Update.$on("Updated", function () {
+      _this5.loadUsers();
+    }); //setInterval(() => this.loadUsers(), 5000); // for realtime update use
   }
 });
 
@@ -41662,7 +41703,27 @@ var render = function() {
                   return _c("tr", { key: user.id }, [
                     _c("td", [_vm._v(_vm._s(user.id))]),
                     _vm._v(" "),
-                    _vm._m(3, true),
+                    _c("td", [
+                      _vm._m(3, true),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn bg-danger btn-flat btn-sm",
+                          attrs: { href: "#", title: "Ubah" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteUser(user.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-user-times icon-white"
+                          })
+                        ]
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(user.name))]),
                     _vm._v(" "),
@@ -42015,25 +42076,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn bg-warning btn-flat btn-sm",
-          attrs: { href: "#", title: "Ubah" }
-        },
-        [_c("i", { staticClass: "fa fa-user-edit icon-white" })]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "btn bg-danger btn-flat btn-sm",
-          attrs: { href: "#", title: "Ubah" }
-        },
-        [_c("i", { staticClass: "fa fa-user-times icon-white" })]
-      )
-    ])
+    return _c(
+      "a",
+      {
+        staticClass: "btn bg-warning btn-flat btn-sm",
+        attrs: { href: "#", title: "Ubah" }
+      },
+      [_c("i", { staticClass: "fa fa-user-edit icon-white" })]
+    )
   },
   function() {
     var _vm = this
