@@ -8,8 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-// Register vform Components
-import './vendor/vform.js'
+// Register vendor Components
+import './vendor.js'
 
 /**
  * 

@@ -42,6 +42,8 @@ Tentunya dalam pengembangan sistem ini tidak lepas dari fitur - fitur yang telah
 - **[Vue Router](https://router.vuejs.org/)**
 - **[vform](https://www.npmjs.com/package/vform)**
 - **[eslint-plugin-vue](https://www.npmjs.com/package/eslint-plugin-vue)**
+- **[vue-progressbar](http://hilongjw.github.io/vue-progressbar/)**
+- **[sweetalert2](https://sweetalert2.github.io/)**
 
 ## Features
 

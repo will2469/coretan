@@ -178,8 +178,18 @@ export default {
   },
   methods: {
     createUser() {
+      this.$Progress.start();
       let url = "api/user";
       this.form.post(url);
+
+      $("#addNew").modal("hide");
+
+      this.$Toast.fire({
+        icon: "success",
+        title: "Pengguna baru telah dibuat bosku..."
+      });
+
+      this.$Progress.finish();
     },
     loadUsers() {
       axios.get("api/user").then(({ data }) => (this.users = data));
