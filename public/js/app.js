@@ -2093,12 +2093,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      editMode: false,
       users: {},
       roles: {},
       form: new Form({
+        id: "",
         name: "",
         email: "",
         password: "",
@@ -2108,6 +2113,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    addUserModal: function addUserModal() {
+      this.editMode = false;
+      this.form.reset();
+      $("#userModal").modal("show");
+    },
+    editUserModal: function editUserModal(user) {
+      this.editMode = true;
+      this.form.reset();
+      this.form.clear();
+      $("#userModal").modal("show");
+      this.form.fill(user);
+      this.form.roleId = user.roles[0].id;
+    },
     deleteUser: function deleteUser(id) {
       var _this = this;
 
@@ -2125,7 +2143,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.form["delete"](url).then(function () {
           if (result.value) {
-            Swal.fire("Berhasil!", "Data berhasil Dihapus Bosku.", "success");
+            Swal.fire("Berhasil!", "Data berhasil dihapus Bosku.", "success");
           }
 
           Update.$emit("Updated");
@@ -2134,26 +2152,24 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    createUser: function createUser() {
+    updateUser: function updateUser() {
       var _this2 = this;
 
       this.$Progress.start();
-      var url = "api/user";
-      this.form.post(url).then(function () {
-        Update.$emit("Updated");
+      var url = "api/user/" + this.form.id;
+      this.form.put(url).then(function () {
+        //succes
         $("#addNew").modal("hide");
-
-        _this2.$Toast.fire({
-          icon: "success",
-          title: "Pengguna baru telah dibuat bosku..."
-        });
+        Swal.fire("Berhasil!", "Data berhasil diubah Bosku.", "success");
 
         _this2.$Progress.finish();
+
+        Update.$emit("Updated");
       })["catch"](function () {
-        _this2.$Toast.fire({
-          icon: "warning",
-          title: "Terdapat kesalahan saat menyimpan data bosku..."
-        });
+        //failed
+        _this2.$Progress.fail();
+
+        Swal.fire("Gagal!", "Data gagal diubah Bosku.", "warning");
       });
     },
     loadUsers: function loadUsers() {
@@ -2182,15 +2198,40 @@ __webpack_require__.r(__webpack_exports__);
         rolesString = rolesString + role.name;
       });
       return rolesString;
+    },
+    createUser: function createUser() {
+      var _this5 = this;
+
+      this.$Progress.start();
+      var url = "api/user";
+      this.form.post(url).then(function () {
+        $("#addNew").modal("hide");
+
+        _this5.$Toast.fire({
+          icon: "success",
+          title: "Pengguna baru telah dibuat bosku..."
+        });
+
+        _this5.$Progress.finish();
+
+        Update.$emit("Updated");
+      })["catch"](function () {
+        _this5.$Progress.fail();
+
+        _this5.$Toast.fire({
+          icon: "warning",
+          title: "Terdapat kesalahan saat menyimpan data bosku..."
+        });
+      });
     }
   },
   created: function created() {
-    var _this5 = this;
+    var _this6 = this;
 
     this.loadUsers();
     this.loadRoles();
     Update.$on("Updated", function () {
-      _this5.loadUsers();
+      _this6.loadUsers();
     }); //setInterval(() => this.loadUsers(), 5000); // for realtime update use
   }
 });
@@ -41691,11 +41732,23 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _vm._m(0),
           _vm._v(" "),
-          _vm._m(1),
+          _c("div", { staticClass: "box-header with-border" }, [
+            _c(
+              "a",
+              {
+                staticClass: "btn bg-success btn-flat btn-sm",
+                on: { click: _vm.addUserModal }
+              },
+              [
+                _vm._v("\n            Tambah Baru\n            "),
+                _c("i", { staticClass: "fa fa-user-edit icon-white" })
+              ]
+            )
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body table-responsive p-0" }, [
             _c("table", { staticClass: "table table-hover text-nowrap" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -41704,7 +41757,19 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(user.id))]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._m(3, true),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn bg-warning btn-flat btn-sm",
+                          attrs: { href: "#", title: "Ubah" },
+                          on: {
+                            click: function($event) {
+                              return _vm.editUserModal(user)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-user-edit icon-white" })]
+                      ),
                       _vm._v(" "),
                       _c(
                         "a",
@@ -41759,12 +41824,46 @@ var render = function() {
       {
         staticClass: "modal fade",
         staticStyle: { display: "none" },
-        attrs: { id: "addNew", "aria-hidden": "true" }
+        attrs: { id: "userModal", "aria-hidden": "true" }
       },
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(4),
+            _c("div", { staticClass: "modal-header" }, [
+              _c(
+                "h4",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.editMode,
+                      expression: "editMode"
+                    }
+                  ],
+                  staticClass: "modal-title"
+                },
+                [_vm._v("Ubah Pengguna")]
+              ),
+              _vm._v(" "),
+              _c(
+                "h4",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.editMode,
+                      expression: "!editMode"
+                    }
+                  ],
+                  staticClass: "modal-title"
+                },
+                [_vm._v("Tambah Pengguna Baru")]
+              ),
+              _vm._v(" "),
+              _vm._m(2)
+            ]),
             _vm._v(" "),
             _c(
               "form",
@@ -41772,7 +41871,7 @@ var render = function() {
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.createUser($event)
+                    _vm.editMode ? _vm.updateUser() : _vm.createUser()
                   }
                 }
               },
@@ -41865,6 +41964,12 @@ var render = function() {
                             rawName: "v-model",
                             value: _vm.form.password,
                             expression: "form.password"
+                          },
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
                           }
                         ],
                         staticClass: "form-control",
@@ -41967,7 +42072,7 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "" } }, [
+                        _c("option", { attrs: { disabled: "", value: "" } }, [
                           _vm._v("Silahkan Pilih Role..")
                         ]),
                         _vm._v(" "),
@@ -41984,7 +42089,54 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(5)
+                _c(
+                  "div",
+                  { staticClass: "modal-footer justify-content-between" },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-warning",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Perbaharui")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Simpan")]
+                    )
+                  ]
+                )
               ]
             )
           ])
@@ -42030,28 +42182,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-header with-border" }, [
-      _c(
-        "a",
-        {
-          staticClass: "btn bg-success btn-flat btn-sm",
-          attrs: {
-            title: "Add New",
-            "data-toggle": "modal",
-            "data-target": "#addNew"
-          }
-        },
-        [
-          _vm._v("\n            Tambah Baru\n            "),
-          _c("i", { staticClass: "fa fa-user-edit icon-white" })
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("No")]),
@@ -42077,57 +42207,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
+      "button",
       {
-        staticClass: "btn bg-warning btn-flat btn-sm",
-        attrs: { href: "#", title: "Ubah" }
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
       },
-      [_c("i", { staticClass: "fa fa-user-edit icon-white" })]
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [
-        _vm._v("Tambah Pengguna Baru")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer justify-content-between" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-default",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("Close")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Simpan")]
-      )
-    ])
   }
 ]
 render._withStripped = true

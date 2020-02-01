@@ -26,12 +26,7 @@
           <!-- /.card-header -->
 
           <div class="box-header with-border">
-            <a
-              class="btn bg-success btn-flat btn-sm"
-              title="Add New"
-              data-toggle="modal"
-              data-target="#addNew"
-            >
+            <a class="btn bg-success btn-flat btn-sm" @click="addUserModal">
               Tambah Baru
               <i class="fa fa-user-edit icon-white"></i>
             </a>
@@ -55,7 +50,12 @@
                 <tr v-for="user in users" :key="user.id">
                   <td>{{user.id}}</td>
                   <td>
-                    <a href="#" class="btn bg-warning btn-flat btn-sm" title="Ubah">
+                    <a
+                      href="#"
+                      @click="editUserModal(user)"
+                      class="btn bg-warning btn-flat btn-sm"
+                      title="Ubah"
+                    >
                       <i class="fa fa-user-edit icon-white"></i>
                     </a>
                     <a
@@ -87,16 +87,17 @@
     </div>
 
     <!-- modal add new user -->
-    <div class="modal fade" id="addNew" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="userModal" style="display: none;" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Tambah Pengguna Baru</h4>
+            <h4 v-show="editMode" class="modal-title">Ubah Pengguna</h4>
+            <h4 v-show="!editMode" class="modal-title">Tambah Pengguna Baru</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form @submit.prevent="createUser">
+          <form @submit.prevent="editMode ? updateUser() : createUser()">
             <div class="modal-body">
               <div class="form-group">
                 <input
@@ -123,6 +124,7 @@
               <div class="form-group">
                 <input
                   v-model="form.password"
+                  v-show="!editMode"
                   type="password"
                   class="form-control"
                   name="password"
@@ -144,7 +146,7 @@
               </div>
               <div class="form-group">
                 <select v-model="form.roleId" name="roleId" id="roleId" class="form-control">
-                  <option value>Silahkan Pilih Role..</option>
+                  <option disabled value>Silahkan Pilih Role..</option>
                   <option
                     v-for="role in roles"
                     :key="role.id"
@@ -155,7 +157,8 @@
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Simpan</button>
+              <button v-show="editMode" type="submit" class="btn btn-warning">Perbaharui</button>
+              <button v-show="!editMode" type="submit" class="btn btn-primary">Simpan</button>
             </div>
           </form>
         </div>
@@ -170,9 +173,11 @@
 export default {
   data() {
     return {
+      editMode: false,
       users: {},
       roles: {},
       form: new Form({
+        id: "",
         name: "",
         email: "",
         password: "",
@@ -182,6 +187,19 @@ export default {
     };
   },
   methods: {
+    addUserModal() {
+      this.editMode = false;
+      this.form.reset();
+      $("#userModal").modal("show");
+    },
+    editUserModal(user) {
+      this.editMode = true;
+      this.form.reset();
+      this.form.clear();
+      $("#userModal").modal("show");
+      this.form.fill(user);
+      this.form.roleId = user.roles[0].id;
+    },
     deleteUser(id) {
       Swal.fire({
         title: "Apakah Sudah Yakin Bosku?",
@@ -198,7 +216,7 @@ export default {
           .delete(url)
           .then(() => {
             if (result.value) {
-              Swal.fire("Berhasil!", "Data berhasil Dihapus Bosku.", "success");
+              Swal.fire("Berhasil!", "Data berhasil dihapus Bosku.", "success");
             }
             Update.$emit("Updated");
           })
@@ -207,28 +225,24 @@ export default {
           });
       });
     },
-    createUser() {
+    updateUser() {
       this.$Progress.start();
-      let url = "api/user";
+      let url = "api/user/" + this.form.id;
       this.form
-        .post(url)
+        .put(url)
         .then(() => {
-          Update.$emit("Updated");
-
+          //succes
           $("#addNew").modal("hide");
-
-          this.$Toast.fire({
-            icon: "success",
-            title: "Pengguna baru telah dibuat bosku..."
-          });
+          Swal.fire("Berhasil!", "Data berhasil diubah Bosku.", "success");
 
           this.$Progress.finish();
+
+          Update.$emit("Updated");
         })
         .catch(() => {
-          this.$Toast.fire({
-            icon: "warning",
-            title: "Terdapat kesalahan saat menyimpan data bosku..."
-          });
+          //failed
+          this.$Progress.fail();
+          Swal.fire("Gagal!", "Data gagal diubah Bosku.", "warning");
         });
     },
     loadUsers() {
@@ -250,6 +264,31 @@ export default {
         rolesString = rolesString + role.name;
       });
       return rolesString;
+    },
+    createUser() {
+      this.$Progress.start();
+      let url = "api/user";
+      this.form
+        .post(url)
+        .then(() => {
+          $("#addNew").modal("hide");
+
+          this.$Toast.fire({
+            icon: "success",
+            title: "Pengguna baru telah dibuat bosku..."
+          });
+
+          this.$Progress.finish();
+
+          Update.$emit("Updated");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+          this.$Toast.fire({
+            icon: "warning",
+            title: "Terdapat kesalahan saat menyimpan data bosku..."
+          });
+        });
     }
   },
   created() {

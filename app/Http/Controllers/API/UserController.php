@@ -37,7 +37,7 @@ class UserController extends Controller
             'name' => 'required|string|max:60',
             'email' => 'required|string|email|max:60|unique:users',
             'password' => 'required|string|min:6',
-            'nik' => 'required|string|size:16',
+            'nik' => 'required|string|size:16|unique:users',
             'roleId' => 'required'
         ]);
 
@@ -73,7 +73,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->roles()->sync($request->roleId);
+
+        $this->validate($request,[
+            'name' => 'required|string|max:60',
+            'email' => 'required|string|email|max:60|unique:users,email,'.$user->id,
+            'nik' => 'required|string|size:16|unique:users,nik'.$user->id,
+            'roleId' => 'sometimes'
+        ]);
+
+        // update user
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->nik = $request->nik;
+        $user->save($request->all());
+
+        return ['message', "User Updated"];
     }
 
     /**
