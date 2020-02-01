@@ -182,6 +182,8 @@ export default {
       let url = "api/user";
       this.form.post(url);
 
+      Update.$emit("AfterUserCreated");
+
       $("#addNew").modal("hide");
 
       this.$Toast.fire({
@@ -215,6 +217,12 @@ export default {
   created() {
     this.loadUsers();
     this.loadRoles();
+
+    Update.$on("AfterUserCreated", () => {
+      this.loadUsers();
+    });
+
+    //setInterval(() => this.loadUsers(), 5000); -for realtime update use
   }
 };
 </script>

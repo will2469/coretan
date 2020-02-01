@@ -11,6 +11,9 @@ window.Vue = require('vue');
 // Register vendor Components
 import './vendor.js'
 
+// Register autoUpdate Components
+import './components/autoUpdate.js'
+
 /**
  * 
  * memberitahukan sistem untuk menggunakan Vue Router

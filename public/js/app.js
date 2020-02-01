@@ -2107,6 +2107,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       var url = "api/user";
       this.form.post(url);
+      Update.$emit("AfterUserCreated");
       $("#addNew").modal("hide");
       this.$Toast.fire({
         icon: "success",
@@ -2143,8 +2144,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    var _this3 = this;
+
     this.loadUsers();
     this.loadRoles();
+    Update.$on("AfterUserCreated", function () {
+      _this3.loadUsers();
+    }); //setInterval(() => this.loadUsers(), 5000); -for realtime update use
   }
 });
 
@@ -57417,6 +57423,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/src/components/autoUpdate.js":
+/*!***************************************************!*\
+  !*** ./resources/js/src/components/autoUpdate.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.Update = new Vue();
+
+/***/ }),
+
 /***/ "./resources/js/src/main.js":
 /*!**********************************!*\
   !*** ./resources/js/src/main.js ***!
@@ -57427,7 +57444,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vendor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vendor.js */ "./resources/js/src/vendor.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_autoUpdate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/autoUpdate.js */ "./resources/js/src/components/autoUpdate.js");
+/* harmony import */ var _components_autoUpdate_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_autoUpdate_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /**
  * 
  * Mendeskripsikan element javascript yang dibutuhkan
@@ -57437,6 +57456,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/src/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // Register vendor Components
 
+ // Register autoUpdate Components
+
 
 /**
  * 
@@ -57445,7 +57466,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 
 
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 /**
  * 
  * Meregristrasikan Vue Router
@@ -57468,7 +57489,7 @@ var routes = [{
  * 
  */
 
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   mode: 'history',
   //membuat mode history
   routes: routes //kode singkat untuk 'routes : routes'
